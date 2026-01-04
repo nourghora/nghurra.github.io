@@ -309,3 +309,11 @@ const statsSection = document.querySelector('.stats-section, section:has(.stat-i
 if (statsSection) {
     statObserver.observe(statsSection);
 }
+
+const observer = new IntersectionObserver(function(entries) {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('animate');
+            }
+        });
+    }, observerOptions);
