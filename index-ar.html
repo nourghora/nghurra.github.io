@@ -456,16 +456,16 @@
                     <h3>أرسل رسالة</h3>
                     <form id="contactForm">
                         <div class="form-group">
-                            <input type="text" placeholder="الاسم الكامل" required>
+                            <input type="text" name="name" placeholder="الاسم الكامل" required>
                         </div>
                         <div class="form-group">
-                            <input type="email" placeholder="البريد الإلكتروني" required>
+                            <input type="email" name="email" placeholder="البريد الإلكتروني" required>
                         </div>
                         <div class="form-group">
-                            <input type="text" placeholder="الشركة" required>
+                            <input type="text" name="company" placeholder="الشركة" required>
                         </div>
                         <div class="form-group">
-                            <select required>
+                            <select name="service" required>
                                 <option value="">نوع الخدمة المطلوبة</option>
                                 <option value="web">اختبار اختراق تطبيقات الويب</option>
                                 <option value="android">اختبار اختراق تطبيقات أندرويد</option>
@@ -476,7 +476,7 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <textarea rows="5" placeholder="رسالتك" required></textarea>
+                            <textarea name="message" rows="5" placeholder="رسالتك" required></textarea>
                         </div>
                         <button type="submit" class="btn-primary">إرسال الرسالة</button>
                     </form>
@@ -505,5 +505,6 @@
 </body>
 
 </html>
+
 
 
