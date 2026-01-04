@@ -1,5 +1,6 @@
 // Mobile Menu Toggle
 document.addEventListener('DOMContentLoaded', function() {
+    // Mobile Menu Toggle
     const menuToggle = document.querySelector('.menu-toggle');
     const navLinks = document.querySelector('.nav-links');
     
@@ -15,34 +16,6 @@ document.addEventListener('DOMContentLoaded', function() {
             navLinks.classList.remove('active');
         });
     });
-    
-    // Contact Form Submission - Google Script
-    const contactForm = document.getElementById('contactForm');
-    
-    if (contactForm) {
-        contactForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            // Collect form data
-            const formData = {
-                name: this.querySelector('[name="name"]').value,
-                email: this.querySelector('[name="email"]').value,
-                company: this.querySelector('[name="company"]').value,
-                service: this.querySelector('[name="service"]').value,
-                message: this.querySelector('[name="message"]').value,
-                timestamp: new Date().toLocaleString('en-US'),
-                language: 'English'
-            };
-            
-            // التحقق من البيانات
-            if (!validateForm(formData)) {
-                return;
-            }
-            
-            // إرسال البيانات
-            sendToGoogleScript(formData, this);
-        });
-    }
     
     // Smooth Scrolling
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -62,16 +35,9 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // Scroll Animation
-    const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-    };
-    
     // Enhanced client logos effects
     const clientLogos = document.querySelectorAll('.client-logo');
     
-    // Add parallax effect on mouse move
     clientLogos.forEach(logo => {
         logo.addEventListener('mousemove', function(e) {
             const xAxis = (window.innerWidth / 2 - e.pageX) / 25;
@@ -82,6 +48,19 @@ document.addEventListener('DOMContentLoaded', function() {
         
         logo.addEventListener('mouseleave', function() {
             this.style.transform = 'translateY(0) scale(1) rotateY(0deg) rotateX(0deg)';
+        });
+    });
+    
+    // Add hover effects for client cards
+    const clientCards = document.querySelectorAll('.client-card');
+    
+    clientCards.forEach(card => {
+        card.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-15px) scale(1.02)';
+        });
+        
+        card.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0) scale(1)';
         });
     });
     
@@ -120,21 +99,14 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Initialize animations
+    // Initialize counter animation
     animateCounter();
     
-    // Add hover effects for client cards
-    const clientCards = document.querySelectorAll('.client-card');
-    
-    clientCards.forEach(card => {
-        card.addEventListener('mouseenter', function() {
-            this.style.transform = 'translateY(-15px) scale(1.02)';
-        });
-        
-        card.addEventListener('mouseleave', function() {
-            this.style.transform = 'translateY(0) scale(1)';
-        });
-    });
+    // Scroll Animation
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
     
     const observer = new IntersectionObserver(function(entries) {
         entries.forEach(entry => {
@@ -164,7 +136,14 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // حل لمشكلة stat-label
+    // Initialize some styles for elements
+    document.querySelectorAll('.timeline-item, .service-card').forEach(el => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(20px)';
+        el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+    });
+    
+    // Ensure stat labels are visible
     const statLabels = document.querySelectorAll('.stat-label');
     statLabels.forEach(label => {
         label.style.setProperty('color', '#ffffff', 'important');
@@ -175,27 +154,45 @@ document.addEventListener('DOMContentLoaded', function() {
         label.style.setProperty('font-weight', '600', 'important');
     });
     
-    const statItems = document.querySelectorAll('.stat-item');
-    statItems.forEach(item => {
-        item.style.setProperty('visibility', 'visible', 'important');
-        item.style.setProperty('opacity', '1', 'important');
-    });
-    
-    // Initialize some styles for elements
-    document.querySelectorAll('.timeline-item, .service-card').forEach(el => {
-        el.style.opacity = '0';
-        el.style.transform = 'translateY(20px)';
-        el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-    });
-    
     // Trigger scroll effect immediately
     window.dispatchEvent(new Event('scroll'));
+    
+    // Contact Form Submission
+    const contactForm = document.getElementById('contactForm');
+    
+    if (contactForm) {
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            console.log('Form submission started');
+            
+            // Collect form data using getElementsByName (more reliable)
+            const formData = {
+                name: document.getElementsByName('name')[0]?.value || '',
+                email: document.getElementsByName('email')[0]?.value || '',
+                company: document.getElementsByName('company')[0]?.value || '',
+                service: document.getElementsByName('service')[0]?.value || '',
+                message: document.getElementsByName('message')[0]?.value || '',
+                timestamp: new Date().toLocaleString('en-US'),
+                language: 'English'
+            };
+            
+            console.log('Form data collected:', formData);
+            
+            // Validate form data
+            if (!validateForm(formData)) {
+                return;
+            }
+            
+            // Send data to Google Script
+            sendToGoogleScript(formData, this);
+        });
+    }
 });
 
 // Google Script URL
 const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw6jxa3AuqAfx4IHB_UOwcjODjr6JkJctmt76xIA3lomklwSsjXskK8tlzKQwdUL_m4/exec';
 
-// دالة التحقق من البيانات
+// Form validation function
 function validateForm(formData) {
     const errors = [];
     
@@ -205,6 +202,7 @@ function validateForm(formData) {
     if (!formData.service) errors.push('Please select a service type');
     if (!formData.message.trim()) errors.push('Message is required');
     
+    // Email validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (formData.email && !emailRegex.test(formData.email)) {
         errors.push('Please enter a valid email address');
@@ -218,16 +216,16 @@ function validateForm(formData) {
     return true;
 }
 
-// دالة الإرسال إلى Google Script
+// Send data to Google Script function
 function sendToGoogleScript(formData, formElement) {
     const submitBtn = formElement.querySelector('button[type="submit"]');
     const originalText = submitBtn.textContent;
     
-    // تحديث حالة الزر
+    // Update button state
     submitBtn.textContent = 'Sending...';
     submitBtn.disabled = true;
     
-    // إرسال البيانات إلى Google Script
+    // Send data to Google Script
     fetch(GOOGLE_SCRIPT_URL, {
         method: 'POST',
         mode: 'no-cors',
@@ -237,7 +235,7 @@ function sendToGoogleScript(formData, formElement) {
         body: JSON.stringify(formData)
     })
     .then(() => {
-        // مع no-cors لا يمكننا قراءة الرد، لكن نفترض النجاح
+        // With no-cors we can't read the response, but assume success
         alert('✅ Message sent successfully! I will contact you soon.');
         formElement.reset();
     })
