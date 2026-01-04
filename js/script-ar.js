@@ -248,3 +248,65 @@ function sendToGoogleScript(formData, formElement) {
         submitBtn.disabled = false;
     });
 }
+
+// 1. دالة العد التدريجي
+function animateCounter(element, target, suffix = '+') {
+    const duration = 1500; // مدة الحركة بالميلي ثانية
+    const frameDuration = 1000 / 60; // ~60 إطار في الثانية
+    const totalFrames = Math.round(duration / frameDuration);
+    let currentFrame = 0;
+    
+    const initialValue = parseInt(element.textContent) || 0;
+    const increment = (target - initialValue) / totalFrames;
+    
+    const counter = setInterval(() => {
+        currentFrame++;
+        const currentValue = Math.round(initialValue + (increment * currentFrame));
+        
+        // تحديث النص في العنصر
+        if (currentFrame >= totalFrames) {
+            element.textContent = target + suffix;
+            clearInterval(counter);
+        } else {
+            element.textContent = currentValue + suffix;
+        }
+    }, frameDuration);
+}
+
+// 2. بدء العد عند ظهور العنصر على الشاشة
+const statObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            const statItems = entry.target.querySelectorAll('.stat-item');
+            
+            statItems.forEach(item => {
+                // البحث عن الرقم داخل العنصر (قد يكون في <span> أو <h3>)
+                const numberElement = item.querySelector('h3, .stat-number, span:first-child');
+                if (numberElement) {
+                    // استخراج الرقم من النص (مثال: "30+")
+                    const text = numberElement.textContent.trim();
+                    const match = text.match(/(\d+)/);
+                    
+                    if (match) {
+                        const targetNumber = parseInt(match[1]);
+                        // إعادة تعيين النص إلى 0 مؤقتًا
+                        numberElement.textContent = '0';
+                        // بدء العد بعد تأخير بسيط
+                        setTimeout(() => {
+                            animateCounter(numberElement, targetNumber, '+');
+                        }, 300);
+                    }
+                }
+            });
+            
+            // إيقاف المراقبة بعد التنفيذ مرة واحدة
+            statObserver.unobserve(entry.target);
+        }
+    });
+}, { threshold: 0.5 }); // عندما يكون 50% من العنصر مرئيًا
+
+// 3. بدء مراقبة قسم الإحصائيات
+const statsSection = document.querySelector('.stats-section, section:has(.stat-item)');
+if (statsSection) {
+    statObserver.observe(statsSection);
+}
