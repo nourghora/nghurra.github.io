@@ -135,4 +135,18 @@ document.addEventListener('DOMContentLoaded', function() {
         item.style.setProperty('visibility', 'visible', 'important');
         item.style.setProperty('opacity', '1', 'important');
     });
+
 });
+const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw6jxa3AuqAfx4IHB_UOwcjODjr6JkJctmt76xIA3lomklwSsjXskK8tlzKQwdUL_m4/exec';
+
+// إرسال البيانات عبر Google Script
+function sendFormData(formData) {
+    return fetch(GOOGLE_SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors', // مهم للـ Google Apps Script
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData)
+    });
+}
