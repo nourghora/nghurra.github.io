@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // Contact Form Submission
+    // Contact Form Submission - Google Script
     const contactForm = document.getElementById('contactForm');
     
     if (contactForm) {
@@ -25,22 +25,22 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Collect form data
             const formData = {
-                name: this.querySelector('input[type="text"]').value,
-                email: this.querySelector('input[type="email"]').value,
-                company: this.querySelector('input[placeholder="Company"]').value,
-                service: this.querySelector('select').value,
-                message: this.querySelector('textarea').value
+                name: this.querySelector('[name="name"]').value,
+                email: this.querySelector('[name="email"]').value,
+                company: this.querySelector('[name="company"]').value,
+                service: this.querySelector('[name="service"]').value,
+                message: this.querySelector('[name="message"]').value,
+                timestamp: new Date().toLocaleString('en-US'),
+                language: 'English'
             };
             
-            // Here you can add code to send the form data to a server
-            alert('Thank you for your message! I will contact you soon.');
+            // التحقق من البيانات
+            if (!validateForm(formData)) {
+                return;
+            }
             
-            // Reset the form
-            contactForm.reset();
-            
-            // You can add form data submission to a server here
-            // console.log('Form data:', formData);
-            // fetch('your-server-endpoint', { method: 'POST', body: JSON.stringify(formData) })
+            // إرسال البيانات
+            sendToGoogleScript(formData, this);
         });
     }
     
@@ -67,22 +67,8 @@ document.addEventListener('DOMContentLoaded', function() {
         threshold: 0.1,
         rootMargin: '0px 0px -50px 0px'
     };
-
-document.addEventListener('DOMContentLoaded', function() {
-    const clientLogos = document.querySelectorAll('.client-logo');
     
-    clientLogos.forEach(logo => {
-        logo.addEventListener('mouseenter', function() {
-            this.style.transform = 'translateY(-10px) scale(1.05)';
-        });
-        
-        logo.addEventListener('mouseleave', function() {
-            this.style.transform = 'translateY(0) scale(1)';
-        });
-    });
-});
-// Enhanced client logos effects
-document.addEventListener('DOMContentLoaded', function() {
+    // Enhanced client logos effects
     const clientLogos = document.querySelectorAll('.client-logo');
     
     // Add parallax effect on mouse move
@@ -97,77 +83,44 @@ document.addEventListener('DOMContentLoaded', function() {
         logo.addEventListener('mouseleave', function() {
             this.style.transform = 'translateY(0) scale(1) rotateY(0deg) rotateX(0deg)';
         });
-        
-        // Add click effect
-        logo.addEventListener('click', function(e) {
-            e.preventDefault();
-            this.style.transform = 'translateY(-12px) scale(0.98)';
-            setTimeout(() => {
-                this.style.transform = 'translateY(-12px) scale(1.02)';
-            }, 150);
-        });
     });
     
-    // Add scroll animation for client logos
-    const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-    };
-    
-    const clientObserver = new IntersectionObserver(function(entries) {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.style.opacity = '1';
-                entry.target.style.transform = 'translateY(0)';
-            }
-        });
-    }, observerOptions);
-    
-    // Set initial styles and observe
-    clientLogos.forEach(logo => {
-        logo.style.opacity = '0';
-        logo.style.transform = 'translateY(30px)';
-        logo.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-        clientObserver.observe(logo);
-    });
-});
-// Counter animation for stats
-function animateCounter() {
-    const counters = document.querySelectorAll('.stat-number');
-    
-    counters.forEach(counter => {
-        const target = parseInt(counter.getAttribute('data-count'));
-        const duration = 2000; // 2 seconds
-        const increment = target / (duration / 16);
-        let current = 0;
+    // Counter animation for stats
+    function animateCounter() {
+        const counters = document.querySelectorAll('.stat-number');
         
-        const updateCounter = () => {
-            current += increment;
+        counters.forEach(counter => {
+            const target = parseInt(counter.getAttribute('data-count'));
+            const duration = 2000; // 2 seconds
+            const increment = target / (duration / 16);
+            let current = 0;
             
-            if (current < target) {
-                counter.textContent = Math.floor(current);
-                requestAnimationFrame(updateCounter);
-            } else {
-                counter.textContent = target;
-            }
-        };
-        
-        // Start animation when element is in viewport
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    updateCounter();
-                    observer.unobserve(entry.target);
+            const updateCounter = () => {
+                current += increment;
+                
+                if (current < target) {
+                    counter.textContent = Math.floor(current);
+                    requestAnimationFrame(updateCounter);
+                } else {
+                    counter.textContent = target;
                 }
-            });
-        }, { threshold: 0.5 });
-        
-        observer.observe(counter);
-    });
-}
-
-// Call function when DOM is loaded
-document.addEventListener('DOMContentLoaded', function() {
+            };
+            
+            // Start animation when element is in viewport
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        updateCounter();
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.5 });
+            
+            observer.observe(counter);
+        });
+    }
+    
+    // Initialize animations
     animateCounter();
     
     // Add hover effects for client cards
@@ -182,7 +135,7 @@ document.addEventListener('DOMContentLoaded', function() {
             this.style.transform = 'translateY(0) scale(1)';
         });
     });
-});
+    
     const observer = new IntersectionObserver(function(entries) {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -211,6 +164,23 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
+    // حل لمشكلة stat-label
+    const statLabels = document.querySelectorAll('.stat-label');
+    statLabels.forEach(label => {
+        label.style.setProperty('color', '#ffffff', 'important');
+        label.style.setProperty('opacity', '1', 'important');
+        label.style.setProperty('visibility', 'visible', 'important');
+        label.style.setProperty('display', 'block', 'important');
+        label.style.setProperty('font-size', '1.1rem', 'important');
+        label.style.setProperty('font-weight', '600', 'important');
+    });
+    
+    const statItems = document.querySelectorAll('.stat-item');
+    statItems.forEach(item => {
+        item.style.setProperty('visibility', 'visible', 'important');
+        item.style.setProperty('opacity', '1', 'important');
+    });
+    
     // Initialize some styles for elements
     document.querySelectorAll('.timeline-item, .service-card').forEach(el => {
         el.style.opacity = '0';
@@ -221,36 +191,62 @@ document.addEventListener('DOMContentLoaded', function() {
     // Trigger scroll effect immediately
     window.dispatchEvent(new Event('scroll'));
 });
-// حل لمشكلة stat-label
-document.addEventListener('DOMContentLoaded', function() {
-    // تأكد من ظهور النصوص
-    const statLabels = document.querySelectorAll('.stat-label');
-    statLabels.forEach(label => {
-        // أعد تعيين الأنماط بشكل قوي
-        label.style.setProperty('color', '#ffffff', 'important');
-        label.style.setProperty('opacity', '1', 'important');
-        label.style.setProperty('visibility', 'visible', 'important');
-        label.style.setProperty('display', 'block', 'important');
-        label.style.setProperty('font-size', '1.1rem', 'important');
-        label.style.setProperty('font-weight', '600', 'important');
-    });
-    
-    // تأكد من أن العناصر مرئية
-    const statItems = document.querySelectorAll('.stat-item');
-    statItems.forEach(item => {
-        item.style.setProperty('visibility', 'visible', 'important');
-        item.style.setProperty('opacity', '1', 'important');
-    });
-});
+
+// Google Script URL
 const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw6jxa3AuqAfx4IHB_UOwcjODjr6JkJctmt76xIA3lomklwSsjXskK8tlzKQwdUL_m4/exec';
 
-function sendFormData(formData) {
-    return fetch(GOOGLE_SCRIPT_URL, {
+// دالة التحقق من البيانات
+function validateForm(formData) {
+    const errors = [];
+    
+    if (!formData.name.trim()) errors.push('Name is required');
+    if (!formData.email.trim()) errors.push('Email is required');
+    if (!formData.company.trim()) errors.push('Company is required');
+    if (!formData.service) errors.push('Please select a service type');
+    if (!formData.message.trim()) errors.push('Message is required');
+    
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (formData.email && !emailRegex.test(formData.email)) {
+        errors.push('Please enter a valid email address');
+    }
+    
+    if (errors.length > 0) {
+        alert('❌ Please fix the following errors:\n\n' + errors.join('\n'));
+        return false;
+    }
+    
+    return true;
+}
+
+// دالة الإرسال إلى Google Script
+function sendToGoogleScript(formData, formElement) {
+    const submitBtn = formElement.querySelector('button[type="submit"]');
+    const originalText = submitBtn.textContent;
+    
+    // تحديث حالة الزر
+    submitBtn.textContent = 'Sending...';
+    submitBtn.disabled = true;
+    
+    // إرسال البيانات إلى Google Script
+    fetch(GOOGLE_SCRIPT_URL, {
         method: 'POST',
-        mode: 'no-cors', // مهم للـ Google Apps Script
+        mode: 'no-cors',
         headers: {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify(formData)
+    })
+    .then(() => {
+        // مع no-cors لا يمكننا قراءة الرد، لكن نفترض النجاح
+        alert('✅ Message sent successfully! I will contact you soon.');
+        formElement.reset();
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('❌ Error sending message. Please try again or contact me directly.');
+    })
+    .finally(() => {
+        submitBtn.textContent = originalText;
+        submitBtn.disabled = false;
     });
 }
