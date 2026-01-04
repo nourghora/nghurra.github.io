@@ -1,4 +1,3 @@
-// Mobile Menu Toggle
 document.addEventListener('DOMContentLoaded', function() {
     // Mobile Menu Toggle
     const menuToggle = document.querySelector('.menu-toggle');
@@ -39,70 +38,197 @@ document.addEventListener('DOMContentLoaded', function() {
     const clientLogos = document.querySelectorAll('.client-logo');
     
     clientLogos.forEach(logo => {
-        logo.addEventListener('mousemove', function(e) {
-            const xAxis = (window.innerWidth / 2 - e.pageX) / 25;
-            const yAxis = (window.innerHeight / 2 - e.pageY) / 25;
-            
-            this.style.transform = `translateY(-12px) scale(1.02) rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
+        logo.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-10px) scale(1.05)';
         });
         
         logo.addEventListener('mouseleave', function() {
-            this.style.transform = 'translateY(0) scale(1) rotateY(0deg) rotateX(0deg)';
-        });
-    });
-    
-    // Add hover effects for client cards
-    const clientCards = document.querySelectorAll('.client-card');
-    
-    clientCards.forEach(card => {
-        card.addEventListener('mouseenter', function() {
-            this.style.transform = 'translateY(-15px) scale(1.02)';
-        });
-        
-        card.addEventListener('mouseleave', function() {
             this.style.transform = 'translateY(0) scale(1)';
         });
     });
     
-    // Counter animation for stats
+    // ========== دالة العد للأرقام (العربية) ==========
     function animateCounter() {
-        const counters = document.querySelectorAll('.stat-number');
+        const statItems = document.querySelectorAll('.stat-item');
         
-        counters.forEach(counter => {
-            const target = parseInt(counter.getAttribute('data-count'));
-            const duration = 2000; // 2 seconds
-            const increment = target / (duration / 16);
-            let current = 0;
+        statItems.forEach(item => {
+            // البحث عن العنصر الذي يحتوي على الرقم (h3 داخل stat-item)
+            const numberElement = item.querySelector('h3');
+            if (!numberElement) return;
             
-            const updateCounter = () => {
-                current += increment;
-                
-                if (current < target) {
-                    counter.textContent = Math.floor(current);
-                    requestAnimationFrame(updateCounter);
-                } else {
-                    counter.textContent = target;
-                }
-            };
+            // الحصول على النص الأصلي
+            const originalText = numberElement.textContent.trim();
             
-            // Start animation when element is in viewport
+            // استخراج الرقم واللاحقة (مثل "30+")
+            let targetNumber, suffix;
+            
+            if (originalText.includes('+')) {
+                const parts = originalText.split('+');
+                targetNumber = parseInt(parts[0]) || 0;
+                suffix = '+';
+            } else {
+                // محاولة استخراج أي رقم
+                const match = originalText.match(/\d+/);
+                targetNumber = match ? parseInt(match[0]) : 0;
+                suffix = originalText.replace(targetNumber, '');
+            }
+            
+            // إذا كان الرقم غير صالح (NaN)، استخدم قيم افتراضية بناءً على النص
+            if (isNaN(targetNumber) || targetNumber === 0) {
+                const itemText = item.textContent;
+                if (itemText.includes('مشروع') || itemText.includes('Project')) targetNumber = 30;
+                else if (itemText.includes('ثغرة') || itemText.includes('Vulnerability')) targetNumber = 400;
+                else if (itemText.includes('ترقيع') || itemText.includes('Patch')) targetNumber = 100;
+                else if (itemText.includes('عميل') || itemText.includes('Client')) targetNumber = 5;
+            }
+            
+            // تخزين القيم كسمات
+            numberElement.setAttribute('data-target', targetNumber);
+            numberElement.setAttribute('data-suffix', suffix);
+            numberElement.setAttribute('data-original', originalText);
+            
+            // البدء من 0
+            numberElement.textContent = '0' + suffix;
+            
+            // بدء العد عندما يكون العنصر مرئياً
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
-                        updateCounter();
+                        const elem = entry.target;
+                        const target = parseInt(elem.getAttribute('data-target'));
+                        const suffix = elem.getAttribute('data-suffix') || '';
+                        
+                        if (target > 0) {
+                            startCounting(elem, target, suffix);
+                        }
                         observer.unobserve(entry.target);
                     }
                 });
-            }, { threshold: 0.5 });
+            }, { threshold: 0.3 });
             
-            observer.observe(counter);
+            observer.observe(numberElement);
         });
     }
     
-    // Initialize counter animation
-    animateCounter();
+    // دالة العد التفصيلية
+    function startCounting(element, target, suffix) {
+        const duration = 1500;
+        const frameDuration = 1000 / 60;
+        const totalFrames = Math.round(duration / frameDuration);
+        let frame = 0;
+        
+        const counter = setInterval(() => {
+            frame++;
+            const progress = frame / totalFrames;
+            const currentValue = Math.round(target * progress);
+            
+            element.textContent = currentValue + suffix;
+            
+            if (frame >= totalFrames) {
+                clearInterval(counter);
+            }
+        }, frameDuration);
+    }
     
-    // Scroll Animation
+    // تهيئة العد
+    setTimeout(() => {
+        animateCounter();
+    }, 300);
+    
+    // ========== دالة المراسلة والدعم (العربية) ==========
+    const contactForm = document.getElementById('contactForm');
+    
+    if (contactForm) {
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            console.log('بدأ إرسال النموذج...');
+            
+            // جمع بيانات النموذج
+            const formData = {
+                name: document.querySelector('input[name="name"]')?.value || '',
+                email: document.querySelector('input[name="email"]')?.value || '',
+                company: document.querySelector('input[name="company"]')?.value || '',
+                service: document.querySelector('select[name="service"]')?.value || '',
+                message: document.querySelector('textarea[name="message"]')?.value || '',
+                timestamp: new Date().toLocaleString('ar-SA'),
+                language: 'العربية'
+            };
+            
+            console.log('بيانات النموذج:', formData);
+            
+            // التحقق من صحة البيانات
+            if (!validateFormArabic(formData)) {
+                return;
+            }
+            
+            // إرسال البيانات
+            sendFormDataArabic(formData, this);
+        });
+    }
+    
+    // ========== دوال المساعدة ==========
+    
+    // رابط سكريبت جوجل
+    const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw6jxa3AuqAfx4IHB_UOwcjODjr6JkJctmt76xIA3lomklwSsjXskK8tlzKQwdUL_m4/exec';
+    
+    // التحقق من صحة النموذج (العربية)
+    function validateFormArabic(formData) {
+        const errors = [];
+        
+        if (!formData.name.trim()) errors.push('الاسم مطلوب');
+        if (!formData.email.trim()) errors.push('البريد الإلكتروني مطلوب');
+        if (!formData.company.trim()) errors.push('اسم الشركة مطلوب');
+        if (!formData.service) errors.push('يرجى اختيار نوع الخدمة');
+        if (!formData.message.trim()) errors.push('الرسالة مطلوبة');
+        
+        // التحقق من صحة البريد الإلكتروني
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (formData.email && !emailRegex.test(formData.email)) {
+            errors.push('يرجى إدخال بريد إلكتروني صحيح');
+        }
+        
+        if (errors.length > 0) {
+            alert('❌ يرجى تصحيح الأخطاء التالية:\n\n' + errors.join('\n'));
+            return false;
+        }
+        
+        return true;
+    }
+    
+    // إرسال البيانات (العربية)
+    function sendFormDataArabic(formData, formElement) {
+        const submitBtn = formElement.querySelector('button[type="submit"]');
+        const originalText = submitBtn.textContent;
+        
+        // تحديث حالة الزر
+        submitBtn.textContent = 'جاري الإرسال...';
+        submitBtn.disabled = true;
+        
+        // إرسال البيانات إلى سكريبت جوجل
+        fetch(GOOGLE_SCRIPT_URL, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formData)
+        })
+        .then(() => {
+            alert('✅ تم إرسال رسالتك بنجاح! سأتصل بك قريباً.');
+            formElement.reset();
+        })
+        .catch(error => {
+            console.error('خطأ:', error);
+            alert('❌ حدث خطأ أثناء الإرسال. يرجى المحاولة مرة أخرى أو الاتصال بي مباشرة.');
+        })
+        .finally(() => {
+            submitBtn.textContent = originalText;
+            submitBtn.disabled = false;
+        });
+    }
+    
+    // ========== تأثيرات التمرير ==========
+    
     const observerOptions = {
         threshold: 0.1,
         rootMargin: '0px 0px -50px 0px'
@@ -116,34 +242,50 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }, observerOptions);
     
-    // Observe elements for animation
+    // مراقبة العناصر للحركة
     document.querySelectorAll('.service-card, .stat-item, .timeline-content, .skill-category').forEach(el => {
         observer.observe(el);
     });
     
-    // Add scroll effects
+    // تأثيرات التمرير
     window.addEventListener('scroll', function() {
         const elements = document.querySelectorAll('.timeline-item, .service-card');
         
         elements.forEach(el => {
             const position = el.getBoundingClientRect();
             
-            // If element is visible in the viewport
             if (position.top < window.innerHeight - 100) {
                 el.style.opacity = '1';
                 el.style.transform = 'translateY(0)';
             }
         });
+        
+        // إعادة تفعيل العد إذا لزم الأمر
+        const unanimatedStats = document.querySelectorAll('.stat-item h3:not([data-counted])');
+        if (unanimatedStats.length > 0) {
+            // تفعيل العد للعناصر المرئية
+            unanimatedStats.forEach(stat => {
+                const rect = stat.getBoundingClientRect();
+                if (rect.top < window.innerHeight && rect.bottom > 0) {
+                    const target = parseInt(stat.getAttribute('data-target'));
+                    const suffix = stat.getAttribute('data-suffix');
+                    if (target && !stat.hasAttribute('data-counted')) {
+                        startCounting(stat, target, suffix);
+                        stat.setAttribute('data-counted', 'true');
+                    }
+                }
+            });
+        }
     });
     
-    // Initialize some styles for elements
+    // تهيئة الأنماط الأولية
     document.querySelectorAll('.timeline-item, .service-card').forEach(el => {
         el.style.opacity = '0';
         el.style.transform = 'translateY(20px)';
         el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
     });
     
-    // Ensure stat labels are visible
+    // تأكد من ظهور نصوص الإحصائيات
     const statLabels = document.querySelectorAll('.stat-label');
     statLabels.forEach(label => {
         label.style.setProperty('color', '#ffffff', 'important');
@@ -154,159 +296,12 @@ document.addEventListener('DOMContentLoaded', function() {
         label.style.setProperty('font-weight', '600', 'important');
     });
     
-    // Trigger scroll effect immediately
+    const statItems = document.querySelectorAll('.stat-item');
+    statItems.forEach(item => {
+        item.style.setProperty('visibility', 'visible', 'important');
+        item.style.setProperty('opacity', '1', 'important');
+    });
+    
+    // تشغيل تأثيرات التمرير فوراً
     window.dispatchEvent(new Event('scroll'));
-    
-    // Contact Form Submission
-    const contactForm = document.getElementById('contactForm');
-    
-    if (contactForm) {
-        contactForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            console.log('Form submission started');
-            
-            // Collect form data using getElementsByName (more reliable)
-            const formData = {
-                name: document.getElementsByName('name')[0]?.value || '',
-                email: document.getElementsByName('email')[0]?.value || '',
-                company: document.getElementsByName('company')[0]?.value || '',
-                service: document.getElementsByName('service')[0]?.value || '',
-                message: document.getElementsByName('message')[0]?.value || '',
-                timestamp: new Date().toLocaleString('en-US'),
-                language: 'English'
-            };
-            
-            console.log('Form data collected:', formData);
-            
-            // Validate form data
-            if (!validateForm(formData)) {
-                return;
-            }
-            
-            // Send data to Google Script
-            sendToGoogleScript(formData, this);
-        });
-    }
 });
-
-// Google Script URL
-const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw6jxa3AuqAfx4IHB_UOwcjODjr6JkJctmt76xIA3lomklwSsjXskK8tlzKQwdUL_m4/exec';
-
-// Form validation function
-function validateForm(formData) {
-    const errors = [];
-    
-    if (!formData.name.trim()) errors.push('Name is required');
-    if (!formData.email.trim()) errors.push('Email is required');
-    if (!formData.company.trim()) errors.push('Company is required');
-    if (!formData.service) errors.push('Please select a service type');
-    if (!formData.message.trim()) errors.push('Message is required');
-    
-    // Email validation
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (formData.email && !emailRegex.test(formData.email)) {
-        errors.push('Please enter a valid email address');
-    }
-    
-    if (errors.length > 0) {
-        alert('❌ Please fix the following errors:\n\n' + errors.join('\n'));
-        return false;
-    }
-    
-    return true;
-}
-
-// Send data to Google Script function
-function sendToGoogleScript(formData, formElement) {
-    const submitBtn = formElement.querySelector('button[type="submit"]');
-    const originalText = submitBtn.textContent;
-    
-    // Update button state
-    submitBtn.textContent = 'Sending...';
-    submitBtn.disabled = true;
-    
-    // Send data to Google Script
-    fetch(GOOGLE_SCRIPT_URL, {
-        method: 'POST',
-        mode: 'no-cors',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData)
-    })
-    .then(() => {
-        // With no-cors we can't read the response, but assume success
-        alert('✅ Message sent successfully! I will contact you soon.');
-        formElement.reset();
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        alert('❌ Error sending message. Please try again or contact me directly.');
-    })
-    .finally(() => {
-        submitBtn.textContent = originalText;
-        submitBtn.disabled = false;
-    });
-}
-
-// 1. دالة العد التدريجي
-function animateCounter(element, target, suffix = '+') {
-    const duration = 1500; // مدة الحركة بالميلي ثانية
-    const frameDuration = 1000 / 60; // ~60 إطار في الثانية
-    const totalFrames = Math.round(duration / frameDuration);
-    let currentFrame = 0;
-    
-    const initialValue = parseInt(element.textContent) || 0;
-    const increment = (target - initialValue) / totalFrames;
-    
-    const counter = setInterval(() => {
-        currentFrame++;
-        const currentValue = Math.round(initialValue + (increment * currentFrame));
-        
-        // تحديث النص في العنصر
-        if (currentFrame >= totalFrames) {
-            element.textContent = target + suffix;
-            clearInterval(counter);
-        } else {
-            element.textContent = currentValue + suffix;
-        }
-    }, frameDuration);
-}
-
-// 2. بدء العد عند ظهور العنصر على الشاشة
-const statObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            const statItems = entry.target.querySelectorAll('.stat-item');
-            
-            statItems.forEach(item => {
-                // البحث عن الرقم داخل العنصر (قد يكون في <span> أو <h3>)
-                const numberElement = item.querySelector('h3, .stat-number, span:first-child');
-                if (numberElement) {
-                    // استخراج الرقم من النص (مثال: "30+")
-                    const text = numberElement.textContent.trim();
-                    const match = text.match(/(\d+)/);
-                    
-                    if (match) {
-                        const targetNumber = parseInt(match[1]);
-                        // إعادة تعيين النص إلى 0 مؤقتًا
-                        numberElement.textContent = '0';
-                        // بدء العد بعد تأخير بسيط
-                        setTimeout(() => {
-                            animateCounter(numberElement, targetNumber, '+');
-                        }, 300);
-                    }
-                }
-            });
-            
-            // إيقاف المراقبة بعد التنفيذ مرة واحدة
-            statObserver.unobserve(entry.target);
-        }
-    });
-}, { threshold: 0.5 }); // عندما يكون 50% من العنصر مرئيًا
-
-// 3. بدء مراقبة قسم الإحصائيات
-const statsSection = document.querySelector('.stats-section, section:has(.stat-item)');
-if (statsSection) {
-    statObserver.observe(statsSection);
-}
