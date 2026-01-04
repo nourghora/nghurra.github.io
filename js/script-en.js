@@ -248,75 +248,93 @@ function sendToGoogleScript(formData, formElement) {
         submitBtn.disabled = false;
     });
 }
-// 1. دالة العد التدريجي
-function animateCounter(element, target, suffix = '+') {
-    const duration = 1500; // مدة الحركة بالميلي ثانية
-    const frameDuration = 1000 / 60; // ~60 إطار في الثانية
-    const totalFrames = Math.round(duration / frameDuration);
-    let currentFrame = 0;
+document.addEventListener('DOMContentLoaded', function() {
+    const menuToggle = document.querySelector('.menu-toggle');
+    const navLinks = document.querySelector('.nav-links');
     
-    const initialValue = parseInt(element.textContent) || 0;
-    const increment = (target - initialValue) / totalFrames;
+    if (menuToggle) {
+        menuToggle.addEventListener('click', function() {
+            navLinks.classList.toggle('active');
+        });
+    }
     
-    const counter = setInterval(() => {
-        currentFrame++;
-        const currentValue = Math.round(initialValue + (increment * currentFrame));
-        
-        // تحديث النص في العنصر
-        if (currentFrame >= totalFrames) {
-            element.textContent = target + suffix;
-            clearInterval(counter);
-        } else {
-            element.textContent = currentValue + suffix;
-        }
-    }, frameDuration);
-}
-
-// 2. بدء العد عند ظهور العنصر على الشاشة
-const statObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            const statItems = entry.target.querySelectorAll('.stat-item');
-            
-            statItems.forEach(item => {
-                // البحث عن الرقم داخل العنصر (قد يكون في <span> أو <h3>)
-                const numberElement = item.querySelector('h3, .stat-number, span:first-child');
-                if (numberElement) {
-                    // استخراج الرقم من النص (مثال: "30+")
-                    const text = numberElement.textContent.trim();
-                    const match = text.match(/(\d+)/);
-                    
-                    if (match) {
-                        const targetNumber = parseInt(match[1]);
-                        // إعادة تعيين النص إلى 0 مؤقتًا
-                        numberElement.textContent = '0';
-                        // بدء العد بعد تأخير بسيط
-                        setTimeout(() => {
-                            animateCounter(numberElement, targetNumber, '+');
-                        }, 300);
-                    }
-                }
-            });
-            
-            // إيقاف المراقبة بعد التنفيذ مرة واحدة
-            statObserver.unobserve(entry.target);
-        }
+    document.querySelectorAll('.nav-links a').forEach(link => {
+        link.addEventListener('click', function() {
+            navLinks.classList.remove('active');
+        });
     });
-}, { threshold: 0.5 }); // عندما يكون 50% من العنصر مرئيًا
 
-// 3. بدء مراقبة قسم الإحصائيات
-const statsSection = document.querySelector('.stats-section, section:has(.stat-item)');
-if (statsSection) {
-    statObserver.observe(statsSection);
-}
- const observerOptions = {
+document.addEventListener('DOMContentLoaded', function() {
+    const clientLogos = document.querySelectorAll('.client-logo');
+    
+    clientLogos.forEach(logo => {
+        logo.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-10px) scale(1.05)';
+        });
+        
+        logo.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0) scale(1)';
+        });
+    });
+});
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            const targetId = this.getAttribute('href');
+            if (targetId === '#') return;
+            
+            const targetElement = document.querySelector(targetId);
+            if (targetElement) {
+                window.scrollTo({
+                    top: targetElement.offsetTop - 80,
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
+    
+
+    const observerOptions = {
         threshold: 0.1,
         rootMargin: '0px 0px -50px 0px'
     };
-const observer = new IntersectionObserver(function(entries) {
+    
+    const observer = new IntersectionObserver(function(entries) {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('animate');
             }
         });
     }, observerOptions);
+    
+
+    document.querySelectorAll('.service-card, .stat-item, .timeline-content, .skill-category').forEach(el => {
+        observer.observe(el);
+    });
+    
+
+    window.addEventListener('scroll', function() {
+        const elements = document.querySelectorAll('.timeline-item, .service-card');
+        
+        elements.forEach(el => {
+            const position = el.getBoundingClientRect();
+            
+
+            if (position.top < window.innerHeight - 100) {
+                el.style.opacity = '1';
+                el.style.transform = 'translateY(0)';
+            }
+        });
+    });
+    
+
+    document.querySelectorAll('.timeline-item, .service-card').forEach(el => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(20px)';
+        el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+    });
+
+    window.dispatchEvent(new Event('scroll'));
+});
