@@ -419,6 +419,12 @@ section[id] {
     border-radius: 50%;
     background: var(--grad);
     box-shadow: 0 50px 90px -45px rgba(59, 130, 246, 0.95);
+    transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+
+.profile-image-container:hover {
+    transform: translateY(-6px) scale(1.04);
+    box-shadow: 0 60px 100px -40px rgba(34, 211, 238, 0.95);
 }
 
 .profile-image-container::after {
@@ -428,6 +434,7 @@ section[id] {
     border-radius: 50%;
     border: 1px dashed rgba(34, 211, 238, 0.4);
     animation: spin 26s linear infinite;
+    pointer-events: none;
 }
 
 .profile-image {
@@ -436,6 +443,11 @@ section[id] {
     border-radius: 50%;
     border: 7px solid var(--bg);
     object-fit: cover;
+    transition: filter 0.35s ease;
+}
+
+.profile-image-container:hover .profile-image {
+    filter: brightness(1.08);
 }
 
 @keyframes spin {
@@ -1082,10 +1094,21 @@ section[id] {
     border-bottom: 1px solid var(--border);
 }
 
+.footer-logo {
+    display: inline-flex;
+    align-items: center;
+}
+
 .footer-logo-image {
     height: 104px;
     width: auto;
     background: transparent;
+    transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.footer-logo:hover .footer-logo-image {
+    transform: translateY(-4px) scale(1.05);
+    filter: drop-shadow(0 10px 22px rgba(34, 211, 238, 0.35));
 }
 
 .footer-info p {
