@@ -13,7 +13,11 @@
     var menuToggle = document.querySelector('.menu-toggle');
     var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    var GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw6jxa3AuqAfx4IHB_UOwcjODjr6JkJctmt76xIA3lomklwSsjXskK8tlzKQwdUL_m4/exec';
+    /* Contact form backend — Google Apps Script web app (see apps-script/Code.gs) */
+    var GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwrUXVQ8gwhi8q7Dmrqz-FsNkg2qcAJtRJfmfTNz6fuwtqLcalqcGPxEeWGUivNHsM5/exec';
+
+    /* Must match SHARED_KEY inside the Apps Script */
+    var CONTACT_SECRET = 'ngr_5f8c1a7e3b2d9406a4c8e2f6b1d9a3c7e5f0b4d8';
 
     /* ---------------- Mobile navigation ---------------- */
     function setMenu(open) {
@@ -193,26 +197,45 @@
             submitBtn.disabled = true;
         }
 
-        fetch(GOOGLE_SCRIPT_URL, {
-            method: 'POST',
-            mode: 'no-cors',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(formData)
-        })
+        var restoreButton = function () {
+            if (submitBtn) {
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+            }
+        };
+
+        Promise.resolve()
             .then(function () {
-                window.alert('Message sent successfully. I will get back to you soon.');
-                formElement.reset();
+                return window.ContactCrypto.encrypt(formData, CONTACT_SECRET);
+            })
+            .then(function (envelope) {
+                return fetch(GOOGLE_SCRIPT_URL, {
+                    method: 'POST',
+                    /* A plain body keeps this a "simple request", so the browser
+                       does not send a CORS preflight. */
+                    body: JSON.stringify(envelope)
+                });
+            })
+            .then(function (response) {
+                return response.text();
+            })
+            .then(function (text) {
+                var result = null;
+                try { result = JSON.parse(text); } catch (parseError) { result = null; }
+
+                if (result && result.ok) {
+                    window.alert('Message sent successfully. I will get back to you soon.');
+                    formElement.reset();
+                    return;
+                }
+
+                throw new Error(result && result.error ? result.error : 'Unexpected response from the server');
             })
             .catch(function (error) {
                 console.error('Contact form error:', error);
                 window.alert('Something went wrong. Please try again or contact me directly.');
             })
-            .finally(function () {
-                if (submitBtn) {
-                    submitBtn.textContent = originalText;
-                    submitBtn.disabled = false;
-                }
-            });
+            .finally(restoreButton);
     }
 
     if (contactForm) {

@@ -13,7 +13,11 @@
     var menuToggle = document.querySelector('.menu-toggle');
     var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    var GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw6jxa3AuqAfx4IHB_UOwcjODjr6JkJctmt76xIA3lomklwSsjXskK8tlzKQwdUL_m4/exec';
+    /* خلفية نموذج التواصل — تطبيق ويب في Google Apps Script (راجع apps-script/Code.gs) */
+    var GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwrUXVQ8gwhi8q7Dmrqz-FsNkg2qcAJtRJfmfTNz6fuwtqLcalqcGPxEeWGUivNHsM5/exec';
+
+    /* يجب أن يطابق SHARED_KEY داخل Apps Script */
+    var CONTACT_SECRET = 'ngr_5f8c1a7e3b2d9406a4c8e2f6b1d9a3c7e5f0b4d8';
 
     /* ---------------- قائمة الجوال ---------------- */
     function setMenu(open) {
@@ -193,26 +197,44 @@
             submitBtn.disabled = true;
         }
 
-        fetch(GOOGLE_SCRIPT_URL, {
-            method: 'POST',
-            mode: 'no-cors',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(formData)
-        })
+        var restoreButton = function () {
+            if (submitBtn) {
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+            }
+        };
+
+        Promise.resolve()
             .then(function () {
-                window.alert('تم إرسال رسالتك بنجاح. سأتواصل معك قريباً.');
-                formElement.reset();
+                return window.ContactCrypto.encrypt(formData, CONTACT_SECRET);
+            })
+            .then(function (envelope) {
+                return fetch(GOOGLE_SCRIPT_URL, {
+                    method: 'POST',
+                    /* إرسال نص عادي يجعل الطلب "بسيطًا" فلا يرسل المتصفح طلب CORS مسبق */
+                    body: JSON.stringify(envelope)
+                });
+            })
+            .then(function (response) {
+                return response.text();
+            })
+            .then(function (text) {
+                var result = null;
+                try { result = JSON.parse(text); } catch (parseError) { result = null; }
+
+                if (result && result.ok) {
+                    window.alert('تم إرسال رسالتك بنجاح. سأتواصل معك قريباً.');
+                    formElement.reset();
+                    return;
+                }
+
+                throw new Error(result && result.error ? result.error : 'رد غير متوقع من الخادم');
             })
             .catch(function (error) {
                 console.error('خطأ في نموذج التواصل:', error);
                 window.alert('حدث خطأ أثناء الإرسال. يرجى المحاولة مرة أخرى أو التواصل معي مباشرة.');
             })
-            .finally(function () {
-                if (submitBtn) {
-                    submitBtn.textContent = originalText;
-                    submitBtn.disabled = false;
-                }
-            });
+            .finally(restoreButton);
     }
 
     if (contactForm) {

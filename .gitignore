@@ -1,0 +1,8 @@
+# Server-side code — never published to GitHub Pages
+apps-script/
+
+# Local / editor noise
+*.local
+Thumbs.db
+desktop.ini
+.DS_Store
