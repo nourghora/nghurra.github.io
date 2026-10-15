@@ -3,19 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="نور الدين غره — مهندس أمن سيبراني متقدم ومشرف اختبار الاختراق، متخصص في تقييم أمن تطبيقات الويب والأندرويد والشبكات.">
+    <meta name="theme-color" content="#070b16">
+    <meta property="og:title" content="نور الدين غره | مهندس أمن سيبراني متقدم">
+    <meta property="og:description" content="مشرف اختبار الاختراق متخصص في تقييم أمن تطبيقات الويب والهواتف والشبكات.">
+    <meta property="og:type" content="website">
     <title>نور الدين غره | مهندس أمن سيبراني متقدم - مشرف اختبار الاختراق</title>
-    <link rel="stylesheet" href="css/style-ar.css">
+    <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
-    <link rel="icon" type="image/x-icon" href="assets/icons/shield.ico">
+    <link rel="icon" type="image/x-icon" href="assets/images/favicon.ico">
+    <script>
+        /* Enables scroll-reveal styles only when JS is available, and releases
+           them if the main script fails to boot, so no content can ever stay hidden. */
+        (function () {
+            var el = document.documentElement;
+            el.classList.add('js');
+            setTimeout(function () {
+                if (!el.dataset.ready) el.classList.remove('js');
+            }, 3500);
+        })();
+    </script>
 </head>
 <body>
     <nav class="navbar">
         <div class="container">
             <a href="#" class="logo">
-            <img src="assets/images/logo-png.png" alt="Nour El Ddine Ghurra" class="logo-image">
+            <img src="assets/images/logo-gold.png" alt="Nour El Ddine Ghurra" class="logo-image">
             <div class="logo-text">
             <div class="logo-title">نور الدين غره</div>
             <div class="logo-subtitle">مهندس أمن سيبراني متقدم</div>
@@ -27,20 +43,23 @@
         <span class="lang-icon">🌐</span>
     </a>
 </div>
-            <ul class="nav-links">
+            <ul class="nav-links" id="primary-navigation">
                 <li><a href="#home">الرئيسية</a></li>
                  <li><a href="#clients">العملاء</a></li>
                 <li><a href="#about">عنّي</a></li>
                 <li><a href="#experience">الخبرات</a></li>
                 <li><a href="#skills">المهارات</a></li>
+                <li><a href="#toolkit">الأدوات</a></li>
                 <li><a href="#services">الخدمات</a></li>
                 <li><a href="#contact">التواصل</a></li>
             </ul>
-            <div class="menu-toggle">
-                <i class="fas fa-bars"></i>
-            </div>
+            <button class="menu-toggle" type="button" aria-label="تبديل القائمة" aria-expanded="false" aria-controls="primary-navigation">
+                <i class="fas fa-bars" aria-hidden="true"></i>
+            </button>
         </div>
     </nav>
+
+    <main>
 
     <section id="home" class="hero">
         <div class="container">
@@ -71,6 +90,28 @@
             
             <div class="clients-grid">
                 <div class="client-card">
+                    <a href="https://nafsihealth.com/" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    class="client-logo-link">
+                    <div class="client-logo-circle">
+                        <div class="circle-bg"></div>
+                        <img src="assets/images/clients/narsi.png" alt="Nafsi Health" class="client-logo">
+                    </div>
+                </a>
+                    <div class="client-info">
+                        <h3 class="client-name">Nafsi Health</h3>
+                        <p class="client-service">Nafsi Health - أول منصة علاج نفسي عبر الإنترنت مرخّصة بالكامل في الإمارات، تربط المستخدمين بأخصائيين نفسيين وأطباء نفسيين مرخّصين عبر جلسات فيديو آمنة. قمت بفحص أمني شامل لمنصة الويب وتطبيقات أندرويد وiOS، واكتشفت ثغرات حرجة وقدّمت حلولاً عملية لحماية بيانات المستخدمين الصحية الحساسة</p>
+                        <div class="client-tags">
+                            <span class="tag">Web APP - Penetration Testing</span>
+                            <span class="tag">Mobile APP - Penetration Testing</span>
+                            <span class="tag">Network - Penetration Testing</span>
+                            <span class="tag">vulnerability assessment</span>
+                            <span class="tag">Date Tested: 2025</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="client-card">
                     <a href="#" 
                     target="_blank" 
                     rel="noopener noreferrer"
@@ -88,6 +129,28 @@
                             <span class="tag">اختبار الاختراق-  تطبيقات الأندرويد</span>
                             <span class="tag">اختبار اختراق - الشبكة</span>
                             <span class="tag">تقييم الثغرات</span>
+                            <span class="tag">تاريخ الاختبار: 2025</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="client-card">
+                    <a href="#" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    class="client-logo-link">
+                    <div class="client-logo-circle">
+                        <div class="circle-bg"></div>
+                        <img src="assets/images/clients/x-syria.png" alt="x syria" class="client-logo">
+                    </div>
+                </a>
+                    <div class="client-info">
+                        <h3 class="client-name">x syria</h3>
+                        <p class="client-service">تطبيق تابع للدولة السورية</p>
+                        <div class="client-tags">
+                            <span class="tag">اختبار الاختراق- تطبيقات الأندرويد</span>
+                            <span class="tag">اختبار الاختراق - تطبيقات الويب</span>
+                            <span class="tag">تقييم الثغرات</span>
+                            <span class="tag">اختبار اختراق - الشبكة</span>
                             <span class="tag">تاريخ الاختبار: 2025</span>
                         </div>
                     </div>
@@ -112,29 +175,6 @@
                             <span class="tag">تقييم الثغرات</span>
                             <span class="tag">تاريخ الاختبار: 2025</span>
                             
-                        </div>
-                    </div>
-                </div>
-
-                <div class="client-card">
-                    <a href="https://play.google.com/store/apps/details?id=me.protechgroup.medpocket&hl=en" 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    class="client-logo-link">
-                    <div class="client-logo-circle">
-                        <div class="circle-bg"></div>
-                        <img src="assets/images/clients/medpocket.jpg" alt="movo" class="client-logo">
-                    </div>
-                </a>
-                    <div class="client-info">
-                        <h3 class="client-name">MedPocket</h3>
-                        <p class="client-service"> MedPocket - تطبيق طبي من Protech Group. قمت بفحص أمني شامل يركز على حماية البيانات الصحية السرية وقنوات الاتصال</p>
-                        <div class="client-tags">
-                            <span class="tag">اختبار الاختراق - تطبيقات الويب</span>
-                            <span class="tag">اختبار الاختراق-  تطبيقات الأندرويد</span>
-                            <span class="tag">اختبار اختراق - الشبكة</span>
-                            <span class="tag">تقييم الثغرات</span>
-                            <span class="tag">تاريخ الاختبار: 2025</span>
                         </div>
                     </div>
                 </div>
@@ -164,27 +204,48 @@
                         </div>
                     </div>
                 </div>
+                <div class="client-card">
+                    <a href="https://play.google.com/store/apps/details?id=me.protechgroup.medpocket&hl=en" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    class="client-logo-link">
+                    <div class="client-logo-circle">
+                        <div class="circle-bg"></div>
+                        <img src="assets/images/clients/medpocket.jpg" alt="movo" class="client-logo">
+                    </div>
+                </a>
+                    <div class="client-info">
+                        <h3 class="client-name">MedPocket</h3>
+                        <p class="client-service"> MedPocket - تطبيق طبي من Protech Group. قمت بفحص أمني شامل يركز على حماية البيانات الصحية السرية وقنوات الاتصال</p>
+                        <div class="client-tags">
+                            <span class="tag">اختبار الاختراق - تطبيقات الويب</span>
+                            <span class="tag">اختبار الاختراق-  تطبيقات الأندرويد</span>
+                            <span class="tag">اختبار اختراق - الشبكة</span>
+                            <span class="tag">تقييم الثغرات</span>
+                            <span class="tag">تاريخ الاختبار: 2025</span>
+                        </div>
+                    </div>
+                </div>
                 </div>
             <div class="clients-stats">
-                <div class="stat-item animate" style="visibility: visible !important; opacity: 1 !important;">
+                <div class="stat-item">
                         <div class="stat-number">30+</div>
                         <div class="stat-text">مشروع مكتمل</div>
                     </div>
-                    <div class="stat-item animate" style="visibility: visible !important; opacity: 1 !important;">
+                    <div class="stat-item">
                         <div class="stat-number">400+</div>
                         <div class="stat-text">ثغرة تم اكتشافها</div>
                     </div>
-                    <div class="stat-item animate" style="visibility: visible !important; opacity: 1 !important;">
+                    <div class="stat-item">
                         <div class="stat-number">100+</div>
                         <div class="stat-text">تحديث أمني</div>
                     </div>
-                      <div class="stat-item animate" style="visibility: visible !important; opacity: 1 !important;">
+                      <div class="stat-item">
                         <div class="stat-number">5+</div>
                         <div class="stat-text">عميل راضٍ</div>
                     </div>
             </div>
         </div>
-        </div>  
     </section>
     <section id="about" class="about">
         <div class="container">
@@ -192,7 +253,7 @@
             <div class="about-content">
                 <div class="about-text">
                     <p>
-                        مهندس اتصالات وإلكترونيات متخصص في الأمن السيبراني. باحث أمني مهتم باكتشاف الثغرات الأمنية. أمتلك خبرة تزيد عن <span class="highlight">3 سنوات و4 أشهر</span> في اختبار الاختراق وتقييم أنظمة الأمان في MTN سوريا.
+                        مهندس اتصالات وإلكترونيات متخصص في الأمن السيبراني. باحث أمني مهتم باكتشاف الثغرات الأمنية. أمتلك خبرة تزيد عن <span class="highlight">4 سنوات وشهر واحد</span> في اختبار الاختراق وتقييم أنظمة الأمان في MTN سوريا.
                     </p>
                     <p>
                         كـ <strong>مشرف اختبار الاختراق</strong>، أقود فريقًا من المتخصصين في اكتشاف الثغرات في تطبيقات الويب وتطبيقات الأندرويد والأيفون والأنظمة المؤسسية المعقدة. شغفي لا يقتصر فقط على اكتشاف الثغرات الأمنية بل يشمل أيضًا تقديم حلول عملية لمعالجتها بشكل فعال.
@@ -200,6 +261,10 @@
                     <div class="certifications">
                         <h3>الشهادات الأكاديمية</h3>
                         <div class="cert-item">
+                            <h4>ماجستير في علوم الحاسوب</h4>
+                            <p class="cert-date">الجامعة الافتراضية السورية · سبتمبر 2026 - الحاضر</p>
+                        </div>
+                        <div class="cert-item" style="margin-top: 15px;">
                             <h4>بكالوريوس هندسة اتصالات وإلكترونيات</h4>
                             <p class="cert-date">أكتوبر 2018 - أكتوبر 2025</p>
                             <p class="cert-grade">المعدل التراكمي: 74.44</p>
@@ -208,7 +273,7 @@
                 </div>
                 <div class="about-stats">
                     <div class="stat-item">
-                        <div class="stat-number">3+</div>
+                        <div class="stat-number">4+</div>
                         <div class="stat-text">سنوات في MTN</div>
                     </div>
                     <div class="stat-item">
@@ -220,7 +285,7 @@
                         <div class="stat-text">ثغرة تم اكتشافها</div>
                     </div>
                     <div class="stat-item">
-                        <div class="stat-number">20+</div>
+                        <div class="stat-number">40+</div>
                         <div class="stat-text">مهارة تقنية</div>
                     </div>
                 </div>
@@ -236,7 +301,7 @@
                     <div class="timeline-date">ديسمبر 2025 - الحاضر</div>
                     <div class="timeline-content">
                         <h3>مشرف: اختبار اختراق أمن المعلومات</h3>
-                        <h4>MTN سوريا · دوام كامل · 3 سنوات 4 أشهر</h4>
+                        <h4>MTN سوريا · دوام كامل · 4 سنوات وشهر واحد</h4>
                         <p>أقود فريقًا من متخصصي اختبار الاختراق في اكتشاف الثغرات عبر تطبيقات الويب  وتطبيقات أندرويد والأيفون والأنظمة المؤسسية المعقدة.</p>
                         <h5>المسؤوليات الرئيسية:</h5>
                         <ul>
@@ -303,6 +368,8 @@
                         <span class="skill-tag">اختبار اختراق تطبيقات أندرويد</span>
                         <span class="skill-tag">اختبار اختراق تطبيقات IOS</span>
                         <span class="skill-tag">اختبار اختراق الشبكات</span>
+                        <span class="skill-tag">اختبار أمن API و GraphQL</span>
+                        <span class="skill-tag">اختبار تطبيقات thick client</span>
                     </div>
                 </div>
                 <div class="skill-category">
@@ -316,13 +383,64 @@
                     </div>
                 </div>
                 <div class="skill-category">
-                    <h3>الهندسة العكسية والأدوات</h3>
+                    <h3>الأدوات والأتمتة الأمنية</h3>
                     <div class="skill-tags">
-                        <span class="skill-tag">الهندسة العكسية</span>
                         <span class="skill-tag">Nessus</span>
                         <span class="skill-tag">مراقبة WAF</span>
                         <span class="skill-tag">أتمتة العمليات</span>
                         <span class="skill-tag">تطوير أدوات مخصصة</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3>استخبارات التهديدات والدارك ويب</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">مراقبة الدارك ويب</span>
+                        <span class="skill-tag">استخبارات التهديدات</span>
+                        <span class="skill-tag">OSINT</span>
+                        <span class="skill-tag">مراقبة تسريب البيانات</span>
+                        <span class="skill-tag">تنبيهات الثغرات (CVE)</span>
+                        <span class="skill-tag">نشر التنبيهات عبر تيليجرام وفيسبوك</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3>الهندسة العكسية وتحليل البرمجيات الثنائية</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">الهندسة العكسية</span>
+                        <span class="skill-tag">IDA Pro</span>
+                        <span class="skill-tag">Ghidra</span>
+                        <span class="skill-tag">radare2</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3>أمن التطبيقات والهواتف</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">تحليل APK / AAB</span>
+                        <span class="skill-tag">jadx و apktool</span>
+                        <span class="skill-tag">تعديل Smali / Dex</span>
+                        <span class="skill-tag">Frida للتحليل الديناميكي</span>
+                        <span class="skill-tag">تجاوز SSL Pinning</span>
+                        <span class="skill-tag">تجاوز كشف الروت والحماية</span>
+                        <span class="skill-tag">تحليل تطبيقات iOS</span>
+                        <span class="skill-tag">إعادة التغليف والتوقيع</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3>أمن الويب وجافاسكربت</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">هندسة عكسية لجافاسكربت</span>
+                        <span class="skill-tag">تحليل المعاملات المشفّرة</span>
+                        <span class="skill-tag">فك تشويش JS المخصّص والآلات الافتراضية</span>
+                        <span class="skill-tag">استرجاع Source Maps</span>
+                        <span class="skill-tag">اكتشاف واجهات التطبيقات المخفية</span>
+                        <span class="skill-tag">تحليل إضافات المتصفح</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3>تطوير الاستغلالات والفريق الأحمر</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">تسلسل سلسلة الهجوم</span>
+                        <span class="skill-tag">تجاوز EDR / AV</span>
+                        <span class="skill-tag">Active Directory / Windows</span>
                     </div>
                 </div>
                 <div class="skill-category">
@@ -334,6 +452,43 @@
                         <span class="skill-tag">إدارة المخاطر</span>
                         <span class="skill-tag">التواصل مع أصحاب المصلحة</span>
                     </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="toolkit" class="services">
+        <div class="container">
+            <h2 class="section-title">صندوق الأدوات الأمنية والقدرات</h2>
+            <p class="section-subtitle">منظومة مهارات منظّمة تقود سير عمل أمني متسق وقابل للتكرار من الاستطلاع حتى إعداد التقرير</p>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-microchip"></i>
+                    </div>
+                    <h3>الهندسة العكسية للبرمجيات الثنائية</h3>
+                    <p>IDA Pro و Ghidra و radare2 و Binary Ninja لمعماريات x86/x64/ARM.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-mobile-screen-button"></i>
+                    </div>
+                    <h3>الهندسة العكسية للتطبيقات والهواتف</h3>
+                    <p>فك تغليف APK/AAB، والتفكيك عبر jadx و apktool، وتعديل Smali و Dex، والربط الديناميكي عبر Frida، وتجاوز SSL Pinning وأنظمة الحماية وكشف الروت.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h3>هندسة جافاسكربت والواجهات الأمامية</h3>
+                    <p>فك تشويش توقيع الطلبات المشفّرة والآلات الافتراضية المخصّصة في جافاسكربت، واسترجاع Source Maps، واكتشاف واجهات الخدمات المخفية في تطبيقات الويب الحديثة.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-crosshairs"></i>
+                    </div>
+                    <h3>تطوير الاستغلالات والفريق الأحمر</h3>
+                    <p>استغلال ثغرات الذاكرة، وتطوير ثغرات N-Day عبر مقارنة التحديثات، وتجاوز EDR/AV، وتحليل مسارات الهجوم في Active Directory والسحابة و Kubernetes.</p>
                 </div>
             </div>
         </div>
@@ -367,6 +522,13 @@
                 </div>
                 <div class="service-card">
                     <div class="service-icon">
+                        <i class="fab fa-apple"></i>
+                    </div>
+                    <h3>اختبار اختراق تطبيقات iOS</h3>
+                    <p>تقييم أمني شامل لتطبيقات iOS يشمل تحليل ملفات IPA، ومراجعة تخزين البيانات وسلسلة المفاتيح (Keychain)، وتجاوز تثبيت الشهادات (SSL Pinning)، والتحليل أثناء التشغيل على الأجهزة المكسورة وغير المكسورة الحماية.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
                         <i class="fas fa-user-shield"></i>
                     </div>
                     <h3>التدريب الأمني المتخصص</h3>
@@ -378,6 +540,13 @@
                     </div>
                     <h3>دعم مركز عمليات الأمان (SOC)</h3>
                     <p>مساعدة فرق مركز عمليات الأمان في الاستجابة للحوادث الأمنية وتحسين إجراءات الكشف والاستجابة.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-user-secret"></i>
+                    </div>
+                    <h3>مراقبة الدارك ويب واستخبارات التهديدات</h3>
+                    <p>مراقبة مستمرة للدارك ويب ومنتديات الهاكرز وقنوات تسريب البيانات لكشف البيانات والبيانات المسروقة والتهديدات الناشئة. أتابع الثغرات الأمنية المُعلنة حديثًا (CVE) وأنشر التنبيهات وتحديثات التهديدات أولًا بأول عبر تيليجرام وفيسبوك.</p>
                 </div>
             </div>
         </div>
@@ -450,6 +619,10 @@
             <i class="fab fa-github"></i>
             <span class="social-text">جيت هاب</span>
         </a>
+        <a href="https://t.me/Nghurr" target="_blank" rel="noopener" class="social-icon telegram">
+            <i class="fab fa-telegram"></i>
+            <span class="social-text">تيليجرام</span>
+        </a>
     </div>
 </div>
                 </div>
@@ -457,16 +630,16 @@
                     <h3>أرسل رسالة</h3>
                     <form id="contactForm">
                         <div class="form-group">
-                            <input type="text" name="name" placeholder="الاسم الكامل" required>
+                            <input type="text" name="name" placeholder="الاسم الكامل" aria-label="الاسم الكامل" required>
                         </div>
                         <div class="form-group">
-                            <input type="email" name="email" placeholder="البريد الإلكتروني" required>
+                            <input type="email" name="email" placeholder="البريد الإلكتروني" aria-label="البريد الإلكتروني" required>
                         </div>
                         <div class="form-group">
-                            <input type="text" name="company" placeholder="الشركة" required>
+                            <input type="text" name="company" placeholder="الشركة" aria-label="الشركة" required>
                         </div>
                         <div class="form-group">
-                            <select name="service" required>
+                            <select name="service" aria-label="نوع الخدمة المطلوبة" required>
                                 <option value="">نوع الخدمة المطلوبة</option>
                                 <option value="web">اختبار اختراق تطبيقات الويب</option>
                                 <option value="android">اختبار اختراق تطبيقات أندرويد</option>
@@ -477,7 +650,7 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <textarea name="message" rows="5" placeholder="رسالتك" required></textarea>
+                            <textarea name="message" rows="5" placeholder="رسالتك" aria-label="رسالتك" required></textarea>
                         </div>
                         <button type="submit" class="btn-primary">إرسال الرسالة</button>
                     </form>
@@ -486,11 +659,13 @@
         </div>
     </section>
 
+    </main>
+
     <footer class="footer">
         <div class="container">
             <div class="footer-content">
                 <div class="footer-logo">
-                    <img src="assets/images/logo-png.png" alt="نور الدين غره" class="footer-logo-image">
+                    <img src="assets/images/logo-gold.png" alt="نور الدين غره" class="footer-logo-image">
                 </div>
                 <div class="footer-info">
                     <p>نور الدين غره | مهندس أمن سيبراني متقدم</p>
@@ -502,7 +677,7 @@
         </div>
     </footer>
 
-    <script src="js/script-ar.js"></script>
+    <script src="js/script-ar.js" defer></script>
 </body>
 
 </html>

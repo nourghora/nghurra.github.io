@@ -3,13 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Nour El Ddine Ghurra — Senior Cybersecurity Engineer and Penetration Test Supervisor specializing in web, Android and network security assessments.">
+    <meta name="theme-color" content="#070b16">
+    <meta property="og:title" content="Nour El Ddine Ghurra | Senior Cybersecurity Engineer">
+    <meta property="og:description" content="Penetration testing supervisor specializing in web, mobile and network security assessments.">
+    <meta property="og:type" content="website">
     <title>Nour El Ddine Ghurra | Senior Cybersecurity Engineer - Penetration Test Supervisor</title>
-    <link rel="stylesheet" href="css/style-en.css">
+    <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="icon" type="image/x-icon" href="assets/icons/shield.ico">
+    <link rel="icon" type="image/x-icon" href="assets/images/favicon.ico">
+    <script>
+        /* Enables scroll-reveal styles only when JS is available, and releases
+           them if the main script fails to boot, so no content can ever stay hidden. */
+        (function () {
+            var el = document.documentElement;
+            el.classList.add('js');
+            setTimeout(function () {
+                if (!el.dataset.ready) el.classList.remove('js');
+            }, 3500);
+        })();
+    </script>
 </head>
 <body>
     <!-- Language Switcher -->
@@ -19,7 +35,7 @@
     <nav class="navbar">
         <div class="container">
            <a href="#" class="logo">
-            <img src="assets/images/logo-png.png" alt="Nour El Ddine Ghurra" class="logo-image">
+            <img src="assets/images/logo-gold.png" alt="Nour El Ddine Ghurra" class="logo-image">
             <div class="logo-text">
             <div class="logo-title">Nour El Ddine Ghurra</div>
             <div class="logo-subtitle">Senior Cybersecurity Engineer</div>
@@ -31,20 +47,23 @@
         <span class="lang-icon">🌐</span>
     </a>
 </div>
-            <ul class="nav-links">
+            <ul class="nav-links" id="primary-navigation">
                 <li><a href="#home">Home</a></li>
                  <li><a href="#clients">Clients</a></li>
                 <li><a href="#about">About</a></li>
                 <li><a href="#experience">Experience</a></li>
                 <li><a href="#skills">Skills</a></li>
+                <li><a href="#toolkit">Toolkit</a></li>
                 <li><a href="#services">Services</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
-            <div class="menu-toggle">
-                <i class="fas fa-bars"></i>
-            </div>
+            <button class="menu-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false" aria-controls="primary-navigation">
+                <i class="fas fa-bars" aria-hidden="true"></i>
+            </button>
         </div>
     </nav>
+
+    <main>
 
     <!-- Hero Section -->
     <section id="home" class="hero">
@@ -80,6 +99,28 @@
             
             <div class="clients-grid">
                 <div class="client-card">
+                    <a href="https://nafsihealth.com/" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    class="client-logo-link">
+                    <div class="client-logo-circle">
+                        <div class="circle-bg"></div>
+                        <img src="assets/images/clients/narsi.png" alt="Nafsi Health" class="client-logo">
+                    </div>
+                </a>
+                    <div class="client-info">
+                        <h3 class="client-name">Nafsi Health</h3>
+                        <p class="client-service">Nafsi Health - the UAE's first fully licensed online therapy and mental health platform, connecting users with licensed psychologists and psychiatrists through secure video sessions. Conducted a comprehensive security assessment across the web platform and Android/iOS applications, uncovering critical vulnerabilities and providing actionable remediation to protect sensitive user and health data</p>
+                        <div class="client-tags">
+                            <span class="tag">Mobile APP - Penetration Testing (IOS + Android)</span>
+                            <span class="tag">Web APP - Penetration Testing</span>
+                            <span class="tag">vulnerability assessment</span>
+                            <span class="tag">Network - Penetration Testing</span>
+                            <span class="tag">Date Tested: 2026</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="client-card">
                     <a href="#" 
                     target="_blank" 
                     rel="noopener noreferrer"
@@ -97,6 +138,28 @@
                             <span class="tag">Mobile APP - Penetration Testing</span>
                             <span class="tag">Network - Penetration Testing</span>
                             <span class="tag">vulnerability assessment</span>
+                            <span class="tag">Date Tested: 2025</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="client-card">
+                    <a href="#" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    class="client-logo-link">
+                    <div class="client-logo-circle">
+                        <div class="circle-bg"></div>
+                        <img src="assets/images/clients/x-syria.png" alt="x syria" class="client-logo">
+                    </div>
+                </a>
+                    <div class="client-info">
+                        <h3 class="client-name">x syria</h3>
+                        <p class="client-service">An application belonging to the Syrian State</p>
+                        <div class="client-tags">
+                            <span class="tag">Mobile APP - Penetration Testing</span>
+                            <span class="tag">Web APP - Penetration Testing</span>
+                            <span class="tag">vulnerability assessment</span>
+                            <span class="tag">Network - Penetration Testing</span>
                             <span class="tag">Date Tested: 2025</span>
                         </div>
                     </div>
@@ -123,30 +186,6 @@
                         </div>
                     </div>
                 </div>
-
-                <div class="client-card">
-                    <a href="https://play.google.com/store/apps/details?id=me.protechgroup.medpocket&hl=en" 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    class="client-logo-link">
-                    <div class="client-logo-circle">
-                        <div class="circle-bg"></div>
-                        <img src="assets/images/clients/medpocket.jpg" alt="movo" class="client-logo">
-                    </div>
-                    </a>
-                    <div class="client-info">
-                        <h3 class="client-name">MedPocket</h3>
-                        <p class="client-service">MedPocket - Medical app by Protech Group. Conducted comprehensive security assessment focusing on confidential health data and communication channel protection</p>
-                        <div class="client-tags">
-                            <span class="tag">Web APP - Penetration Testing</span>
-                            <span class="tag">Mobile APP - Penetration Testing</span>
-                            <span class="tag">Network - Penetration Testing</span>
-                            <span class="tag">vulnerability assessment</span>
-                            <span class="tag">Date Tested: 2025</span>
-                        </div>
-                    </div>
-                </div>
-
                 <div class="client-card">
                     <a href="#" 
                     target="_blank" 
@@ -161,6 +200,28 @@
                         <h3 class="client-name">Bank X syria</h3>
                         <p class="client-service"> My first bounty for uncovering critical security vulnerabilities in Syria's largest financial and banking applications!! 😁 
 Received $$$ after discovering two severe flaws in Syria’s top financial app, enabling: ✅ Transferring funds between ANY accounts  <br>✅ Paying ANY bill from ANY account within the app  <br>✅ Full access to ALL user records <br>✅ Access to database files </p>
+                        <div class="client-tags">
+                            <span class="tag">Web APP - Penetration Testing</span>
+                            <span class="tag">Mobile APP - Penetration Testing</span>
+                            <span class="tag">Network - Penetration Testing</span>
+                            <span class="tag">vulnerability assessment</span>
+                            <span class="tag">Date Tested: 2025</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="client-card">
+                    <a href="https://play.google.com/store/apps/details?id=me.protechgroup.medpocket&hl=en" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    class="client-logo-link">
+                    <div class="client-logo-circle">
+                        <div class="circle-bg"></div>
+                        <img src="assets/images/clients/medpocket.jpg" alt="movo" class="client-logo">
+                    </div>
+                    </a>
+                    <div class="client-info">
+                        <h3 class="client-name">MedPocket</h3>
+                        <p class="client-service">MedPocket - Medical app by Protech Group. Conducted comprehensive security assessment focusing on confidential health data and communication channel protection</p>
                         <div class="client-tags">
                             <span class="tag">Web APP - Penetration Testing</span>
                             <span class="tag">Mobile APP - Penetration Testing</span>
@@ -190,20 +251,20 @@ Received $$$ after discovering two severe flaws in Syria’s top financial app, 
 
             <!-- Stats Section -->
             <div class="clients-stats">
-                <div class="stat-item animate" style="visibility: visible !important; opacity: 1 !important;">
+                <div class="stat-item">
                         <div class="stat-number">30+</div>
                         <div class="stat-text">Projects Completed</div>
                     </div>
-                    <div class="stat-item animate" style="visibility: visible !important; opacity: 1 !important;">
+                    <div class="stat-item">
                         <div class="stat-number">400+</div>
                         <div class="stat-text">Vulnerabilities Found</div>
                     </div>
-                    <div class="stat-item animate" style="visibility: visible !important; opacity: 1 !important;">
+                    <div class="stat-item">
                         <div class="stat-number">100+</div>
                         <div class="stat-text">Security Patches</div>
                     </div>
-                      <div class="stat-item animate" style="visibility: visible !important; opacity: 1 !important;">
-                        <div class="stat-number">5+</div>
+                      <div class="stat-item">
+                        <div class="stat-number">6+</div>
                         <div class="stat-text">Happy Clients</div>
                     </div>
             </div>
@@ -216,7 +277,7 @@ Received $$$ after discovering two severe flaws in Syria’s top financial app, 
             <div class="about-content">
                 <div class="about-text">
                     <p>
-                        Communications and Electronics Engineer specializing in cybersecurity. A security researcher interested in discovering security vulnerabilities. With over <span class="highlight">3 years and 6 months</span> of experience in penetration testing and security system evaluation at MTN Syria.
+                        Communications and Electronics Engineer specializing in cybersecurity. A security researcher interested in discovering security vulnerabilities. With over <span class="highlight">4 years and 1 month</span> of experience in penetration testing and security system evaluation at MTN Syria.
                     </p>
                     <p>
                         As a <strong>Penetration Test Supervisor</strong>, I lead a team of specialists in discovering vulnerabilities in web applications, Android applications, and complex enterprise systems. My passion is not only limited to discovering security vulnerabilities but also providing practical solutions to address them effectively.
@@ -224,6 +285,10 @@ Received $$$ after discovering two severe flaws in Syria’s top financial app, 
                     <div class="certifications">
                         <h3>Academic Certifications</h3>
                         <div class="cert-item">
+                            <h4>Master's Degree in Computer Science</h4>
+                            <p class="cert-date">Syrian Virtual University · September 2026 - Present</p>
+                        </div>
+                        <div class="cert-item" style="margin-top: 15px;">
                             <h4>Bachelor's Degree in Telecommunications and Electronics Engineering</h4>
                             <p class="cert-date">October 2018 - October 2025</p>
                             <p class="cert-grade">GPA: 74.44</p>
@@ -232,7 +297,7 @@ Received $$$ after discovering two severe flaws in Syria’s top financial app, 
                 </div>
                 <div class="about-stats">
                     <div class="stat-item">
-                        <div class="stat-number">3+</div>
+                        <div class="stat-number">4+</div>
                         <div class="stat-text">Years at MTN</div>
                     </div>
                     <div class="stat-item">
@@ -244,7 +309,7 @@ Received $$$ after discovering two severe flaws in Syria’s top financial app, 
                         <div class="stat-text">Vulnerabilities Discovered</div>
                     </div>
                     <div class="stat-item">
-                        <div class="stat-number">20+</div>
+                        <div class="stat-number">40+</div>
                         <div class="stat-text">Technical Skills</div>
                     </div>
                 </div>
@@ -261,16 +326,18 @@ Received $$$ after discovering two severe flaws in Syria’s top financial app, 
                     <div class="timeline-date">December 2025 - Present</div>
                     <div class="timeline-content">
                         <h3>Supervisor: Information Security Penetration Test</h3>
-                        <h4>MTN Syria · Full-time · 3 years 4 months</h4>
-                        <p>I lead a team of penetration testing specialists in discovering vulnerabilities across web applications, Android applications, and complex enterprise systems.</p>
+                        <h4>MTN Syria · Full-time · 4 yrs 1 mo · Syria · On-site</h4>
+                        <p>As a <strong>Supervisor of Information Security Penetration Testing</strong>, I lead a team of skilled penetration testers in identifying vulnerabilities across web applications, Android applications, and complex enterprise systems.</p>
                         <h5>Key Responsibilities:</h5>
                         <ul>
-                            <li><strong>Team Leadership & Management:</strong> Lead and mentor a team of penetration testers, overseeing project assignments, quality assurance, and professional development.</li>
-                            <li><strong>Strategic Penetration Testing:</strong> Direct comprehensive penetration testing engagements for web and Android applications, ensuring thorough vulnerability identification and risk assessment.</li>
-                            <li><strong>Incident Response Leadership:</strong> Coordinate prompt responses to security breaches, leveraging advanced incident response protocols to minimize impact and strengthen defensive measures.</li>
-                            <li><strong>Technical Analysis & Automation:</strong> Utilize advanced programming skills in multiple languages to analyze complex systems, develop custom testing tools, and implement automation solutions.</li>
-                            <li><strong>Vulnerability Management:</strong> Oversee network vulnerability assessments using tools like Nessus.</li>
-                            <li><strong>Security Operations Collaboration:</strong> Partner with Security Operations Center (SOC) teams to enhance threat detection capabilities.</li>
+                            <li><strong>Team Leadership & Management:</strong> Lead and mentor a team of penetration testers, overseeing project assignments, quality assurance, and professional development to ensure high-performance standards and continuous skill enhancement.</li>
+                            <li><strong>Strategic Penetration Testing:</strong> Direct comprehensive penetration testing engagements for web and Android applications, ensuring thorough vulnerability identification and risk assessment aligned with organizational security objectives.</li>
+                            <li><strong>Incident Response Leadership:</strong> Coordinate prompt responses to security breaches, leveraging advanced incident response protocols to minimize organizational impact and strengthen defensive measures.</li>
+                            <li><strong>Technical Analysis & Automation:</strong> Utilize advanced programming skills in multiple languages to analyze complex systems, develop custom testing tools, and implement automation solutions that enhance testing efficiency and coverage.</li>
+                            <li><strong>Vulnerability Management:</strong> Oversee network vulnerability assessments using tools like Nessus, ensuring comprehensive evaluation and prioritization of security risks across all infrastructure layers.</li>
+                            <li><strong>Security Operations Collaboration:</strong> Partner with Security Operations Center (SOC) teams to enhance threat detection capabilities, improve incident response procedures, and optimize Web Application Firewall (WAF) monitoring.</li>
+                            <li><strong>Client & Stakeholder Management:</strong> Interface with organizational stakeholders to communicate security findings, present remediation strategies, and align testing activities with business objectives and compliance requirements.</li>
+                            <li><strong>Quality Assurance & Reporting:</strong> Ensure all penetration testing deliverables meet highest quality standards, with clear, actionable recommendations that enable effective vulnerability remediation.</li>
                         </ul>
                     </div>
                 </div>
@@ -278,17 +345,20 @@ Received $$$ after discovering two severe flaws in Syria’s top financial app, 
                     <div class="timeline-date">December 2024 - December 2025</div>
                     <div class="timeline-content">
                         <h3>Senior Engineer: IT-Information Security - Penetration Tester</h3>
-                        <h4>MTN Syria</h4>
-                        <p>As a <strong>Senior Penetration Tester</strong> with extensive experience in identifying vulnerabilities in web applications and Android applications.</p>
+                        <h4>MTN Syria · Full-time · 1 yr 1 mo</h4>
+                        <p>As a <strong>Senior Penetration Tester</strong> with extensive experience in identifying vulnerabilities in web applications and Android applications, I am passionate about enhancing cybersecurity measures and protecting organizations from potential threats.</p>
                         <h5>Key Tasks:</h5>
                         <ul>
                             <li>Conduct thorough penetration testing on web and Android applications to identify vulnerabilities.</li>
                             <li>Provide actionable recommendations for remediating identified security flaws effectively.</li>
                             <li>Respond promptly to security breaches, utilizing incident response skills to minimize impact.</li>
                             <li>Analyze complex systems using programming skills in multiple languages to uncover overlooked weaknesses.</li>
-                            <li>Assess network vulnerabilities to ensure comprehensive security across all infrastructure layers.</li>
+                            <li>Assess network vulnerabilities to ensure comprehensive security across all layers of the organization's infrastructure.</li>
                             <li>Assist the Security Operations Center (SOC) team in responding to security incidents and breaches.</li>
                             <li>Monitor Web Application Firewalls (WAF) to ensure optimal protection against web-based threats.</li>
+                            <li>Utilize Nessus for vulnerability assessments, ensuring thorough evaluation of network vulnerabilities.</li>
+                            <li>Collaborate with other cybersecurity professionals to contribute to innovative initiatives that enhance digital security.</li>
+                            <li>Develop and implement automation for various processes to enhance efficiency and effectiveness in security operations.</li>
                         </ul>
                     </div>
                 </div>
@@ -296,8 +366,8 @@ Received $$$ after discovering two severe flaws in Syria’s top financial app, 
                     <div class="timeline-date">October 2022 - December 2024</div>
                     <div class="timeline-content">
                         <h3>Engineer: IT-Information Security - Penetration Tester</h3>
-                        <h4>MTN Syria</h4>
-                        <p>As a <strong>Penetration Tester</strong> with extensive experience in identifying vulnerabilities in web applications and Android applications.</p>
+                        <h4>MTN Syria · Full-time · 2 yrs 3 mos</h4>
+                        <p>As a <strong>Penetration Tester</strong> with extensive experience in identifying vulnerabilities in web applications and Android applications, I am passionate about enhancing cybersecurity measures and protecting organizations from potential threats.</p>
                         <h5>Training & Development:</h5>
                         <div class="training">
                             <h6>🌟 Security Training on Cash Mobile Workflow Mechanism 🌟</h6>
@@ -327,11 +397,13 @@ Received $$$ after discovering two severe flaws in Syria’s top financial app, 
                     <div class="skill-tags">
                         <span class="skill-tag">Web Application Penetration Testing</span>
                         <span class="skill-tag">Android Application Penetration Testing</span>
-                        <span class="skill-tag">IOS Application Penetration Testing</span>
+                        <span class="skill-tag">iOS Application Penetration Testing</span>
                         <span class="skill-tag">Network Penetration Testing</span>
-                        
-                        
-
+                        <span class="skill-tag">API &amp; GraphQL Security Testing</span>
+                        <span class="skill-tag">Thick Client Testing</span>
+                        <span class="skill-tag">Bug Bounty</span>
+                        <span class="skill-tag">Red Teaming</span>
+                        <span class="skill-tag">Mobile Security</span>
                     </div>
                 </div>
                 <div class="skill-category">
@@ -345,13 +417,69 @@ Received $$$ after discovering two severe flaws in Syria’s top financial app, 
                     </div>
                 </div>
                 <div class="skill-category">
-                    <h3>Reverse Engineering & Tools</h3>
+                    <h3>Security Tools &amp; Automation</h3>
                     <div class="skill-tags">
-                        <span class="skill-tag">Reverse Engineering</span>
                         <span class="skill-tag">Nessus</span>
                         <span class="skill-tag">WAF Monitoring</span>
                         <span class="skill-tag">Process Automation</span>
                         <span class="skill-tag">Custom Tool Development</span>
+                        <span class="skill-tag">Burp Suite</span>
+                        <span class="skill-tag">Postman</span>
+                        <span class="skill-tag">Metasploit</span>
+                        <span class="skill-tag">Nmap</span>
+                        <span class="skill-tag">Wireshark</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3>Threat Intelligence &amp; Dark Web</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Dark Web Monitoring</span>
+                        <span class="skill-tag">Threat Intelligence</span>
+                        <span class="skill-tag">OSINT</span>
+                        <span class="skill-tag">Credential Leak Monitoring</span>
+                        <span class="skill-tag">CVE &amp; Vulnerability Alerts</span>
+                        <span class="skill-tag">Threat Alerts via Telegram &amp; Facebook</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3>Reverse Engineering &amp; Binary Analysis</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Reverse Engineering</span>
+                        <span class="skill-tag">IDA Pro</span>
+                        <span class="skill-tag">Ghidra</span>
+                        <span class="skill-tag">radare2</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3>Mobile &amp; Application Security</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">APK / AAB Analysis</span>
+                        <span class="skill-tag">jadx &amp; apktool</span>
+                        <span class="skill-tag">Smali / Dex Patching</span>
+                        <span class="skill-tag">Frida Dynamic Instrumentation</span>
+                        <span class="skill-tag">SSL Pinning Bypass</span>
+                        <span class="skill-tag">Root &amp; Anti-Tamper Bypass</span>
+                        <span class="skill-tag">iOS Application Analysis</span>
+                        <span class="skill-tag">Repackaging &amp; Re-signing</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3>Web &amp; JavaScript Security</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">JavaScript Reverse Engineering</span>
+                        <span class="skill-tag">Encrypted Parameter Analysis</span>
+                        <span class="skill-tag">Custom JS / VM Deobfuscation</span>
+                        <span class="skill-tag">Source Map Recovery</span>
+                        <span class="skill-tag">SPA Backend Endpoint Discovery</span>
+                        <span class="skill-tag">Browser Extension Analysis</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3>Exploit Development &amp; Red Teaming</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Attack Chain Orchestration</span>
+                        <span class="skill-tag">EDR / AV Bypass</span>
+                        <span class="skill-tag">Active Directory / Windows</span>
                     </div>
                 </div>
                 <div class="skill-category">
@@ -363,6 +491,44 @@ Received $$$ after discovering two severe flaws in Syria’s top financial app, 
                         <span class="skill-tag">Risk Management</span>
                         <span class="skill-tag">Stakeholder Communication</span>
                     </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Security Toolkit Section -->
+    <section id="toolkit" class="services">
+        <div class="container">
+            <h2 class="section-title">Security Toolkit &amp; Capabilities</h2>
+            <p class="section-subtitle">A structured skill-routing toolkit that drives consistent, repeatable security workflows from reconnaissance to reporting</p>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-microchip"></i>
+                    </div>
+                    <h3>Binary &amp; Native Reverse Engineering</h3>
+                    <p>IDA Pro, Ghidra, radare2 and Binary Ninja for x86/x64/ARM binaries.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-mobile-screen-button"></i>
+                    </div>
+                    <h3>Mobile Reverse Engineering</h3>
+                    <p>APK/AAB unpacking, jadx/apktool decompilation, smali and dex patching, Frida dynamic hooking, and SSL pinning / anti-tamper bypass.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h3>JavaScript &amp; Client-Side Reversing</h3>
+                    <p>Deobfuscating encrypted request signing and custom JS virtual machines, recovering source maps, and mapping the hidden backend APIs of single-page apps.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-crosshairs"></i>
+                    </div>
+                    <h3>Exploit Development &amp; Red Teaming</h3>
+                    <p>Memory-corruption exploitation, patch-diff driven N-day development, EDR/AV evasion, and Active Directory, cloud and Kubernetes attack-path analysis.</p>
                 </div>
             </div>
         </div>
@@ -397,6 +563,13 @@ Received $$$ after discovering two severe flaws in Syria’s top financial app, 
                 </div>
                 <div class="service-card">
                     <div class="service-icon">
+                        <i class="fab fa-apple"></i>
+                    </div>
+                    <h3>iOS Application Penetration Testing</h3>
+                    <p>Comprehensive security assessment of iOS applications, covering IPA analysis, keychain and data storage review, TLS/SSL pinning bypass, and runtime analysis on both jailbroken and non-jailbroken devices.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
                         <i class="fas fa-user-shield"></i>
                     </div>
                     <h3>Specialized Security Training</h3>
@@ -415,6 +588,13 @@ Received $$$ after discovering two severe flaws in Syria’s top financial app, 
                     </div>
                     <h3>Security Operations Center (SOC) Support</h3>
                     <p>Assisting Security Operations Center teams in responding to security incidents and improving detection and response procedures.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-user-secret"></i>
+                    </div>
+                    <h3>Dark Web &amp; Threat Intelligence Monitoring</h3>
+                    <p>Continuous monitoring of the dark web, hacker forums and data-leak channels for leaked credentials, stolen data and emerging threats. I track newly disclosed vulnerabilities (CVEs) and publish timely alerts and threat updates on Telegram and Facebook.</p>
                 </div>
             </div>
         </div>
@@ -467,6 +647,10 @@ Received $$$ after discovering two severe flaws in Syria’s top financial app, 
                                 <i class="fab fa-github"></i>
                                 GitHub
                             </a>
+                            <a href="https://t.me/Nghurr" target="_blank" rel="noopener" class="social-icon telegram">
+                                <i class="fab fa-telegram"></i>
+                                Telegram
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -474,16 +658,16 @@ Received $$$ after discovering two severe flaws in Syria’s top financial app, 
                     <h3>Send a Message</h3>
                     <form id="contactForm">
                         <div class="form-group">
-                            <input type="text" name="name" placeholder="Full Name" required>
+                            <input type="text" name="name" placeholder="Full Name" aria-label="Full Name" required>
                         </div>
                         <div class="form-group">
-                            <input type="email" name="email" placeholder="Email Address" required>
+                            <input type="email" name="email" placeholder="Email Address" aria-label="Email Address" required>
                         </div>
                         <div class="form-group">
-                            <input type="text" name="company" placeholder="Company" required>
+                            <input type="text" name="company" placeholder="Company" aria-label="Company" required>
                         </div>
                         <div class="form-group">
-                            <select name="service" id="service" required>
+                            <select name="service" id="service" aria-label="Required service type" required>
                                 <option value="">Required Service Type</option>
                                 <option value="web">Web Application Penetration Testing</option>
                                 <option value="android">Android Application Penetration Testing</option>
@@ -494,7 +678,7 @@ Received $$$ after discovering two severe flaws in Syria’s top financial app, 
                             </select>
                         </div>
                         <div class="form-group">
-                            <textarea name="message" rows="5" placeholder="Your Message" required></textarea>
+                            <textarea name="message" rows="5" placeholder="Your Message" aria-label="Your message" required></textarea>
                         </div>
                         <button type="submit" class="btn-primary">Send Message</button>
                     </form>
@@ -503,12 +687,14 @@ Received $$$ after discovering two severe flaws in Syria’s top financial app, 
         </div>
     </section>
 
+    </main>
+
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
             <div class="footer-content">
                 <div class="footer-logo">
-                    <img src="assets/images/logo-png.png" alt="Nour El Ddine Ghurra" class="footer-logo-image">
+                    <img src="assets/images/logo-gold.png" alt="Nour El Ddine Ghurra" class="footer-logo-image">
                 </div>
                 <div class="footer-info">
                     <p>Nour El Ddine Ghurra | Senior Cybersecurity Engineer</p>
@@ -520,7 +706,7 @@ Received $$$ after discovering two severe flaws in Syria’s top financial app, 
         </div>
     </footer>
 
-    <script src="js/script-en.js"></script>
+    <script src="js/script-en.js" defer></script>
 </body>
 
 </html>
